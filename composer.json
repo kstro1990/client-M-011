@@ -1,0 +1,10 @@
+{
+    "name": "luis.castro/pago-efectivo",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "LuisCastro\\PagoEfectivo\\": "src/"
+        }
+    },
+    "require": {}
+}
