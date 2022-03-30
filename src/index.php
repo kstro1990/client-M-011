@@ -41,7 +41,8 @@ try {
     ]);
     $ws->__setLocation('https://test.placetopay.com/fidubogota');
 
-    $variable = 'getBillByReference';
+    //indicar el tipo de metodo que se desea utilizar
+    $variable = 'getBillByDebtorCode';
 
     switch ($variable) {
         case 'getBillByReference':
@@ -50,6 +51,7 @@ try {
             $parameters->reference = $reference;
             $parameters->agreement = $agreement;
             $result = $ws->getBillByReference($parameters);
+            //var_dump($ws->__getLastRequest());
             break;
         case 'getBillByDebtorID':
             $parameters = new stdClass();
@@ -67,21 +69,24 @@ try {
             break;
         case 'settlePayment':
             $parameters = new stdClass();
+            $payment = new stdClass();
             $parameters->auth = $auth;
 
-            $parameters->reference = $reference;
-            $parameters->totalAmount = $totalAmount;
-            $parameters->date = $date;
-            $parameters->receipt = $receipt;
-            $parameters->franchise = $franchise;
-            $parameters->channel = $channel;
-            $parameters->method = $method;
-            $parameters->cashAmount = $cashAmount;
-            $parameters->payerID = $payerID;
-            // $parameters->agreement = agreement;
-            // $parameters->agentID
-            // $parameters->location
-
+            $payment->reference = $reference;
+            $payment->totalAmount = 000000;
+            $payment->date = date('c');
+            $payment->receipt = null;
+            $payment->franchise = 'DVVND';
+            $payment->channel = 'OFC';
+            $payment->method = 'CASH';
+            $payment->checkInfo = null;
+            $payment->cashAmount = 00000;
+            $payment->payerID = '0000000';
+            $payment->agreement = $agreement;
+            $payment->agentID = '123456';
+            $payment->location = '999';
+            $parameters->payment = $payment;
+            $result = $ws->settlePayment($parameters);
             break;
     }
 
