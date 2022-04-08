@@ -4,7 +4,11 @@
 
 class Authentication
 {
-    //Autenticacion para pago en efectivo
+    /**
+     * Autenticacion para pago en efectivo esta recibe dos parametros
+     * @param string $login
+     * @param string $trankey
+     */
     public function setAuthM011($login, $trankey)
     {
         $rTrankey = $this->hasTrankey($trankey);

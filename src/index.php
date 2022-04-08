@@ -1,4 +1,7 @@
 <?php
+// $s3_bucket = $_ENV['S3_BUCKET'];
+
+// var_dump($s3_bucket);
 
 include __DIR__ . '../utils/Authentication.php';
 
@@ -11,6 +14,8 @@ $autentia = new Authentication();
 $auth = $autentia->setAuthM011($login, $trankey);
 
 // informacion de pago
+
+//Código convenio
 $agreement = '';
 
 //getBillByReference
@@ -21,6 +26,9 @@ $debtorID = '';
 
 //getBillByDebtorCode
 $debtorCode = '';
+
+//url del cliente del comercio
+$uriCustomer = 'https://test.placetopay.com/fidubogota';
 
 //intarciar el cliente SOAP publidado para el insumo
 try {
@@ -39,12 +47,12 @@ try {
             ],
         ],
     ]);
-    $ws->__setLocation('https://test.placetopay.com/fidubogota');
+    $ws->__setLocation($uriCustomer);
 
     //indicar el tipo de metodo que se desea utilizar
-    $variable = 'getBillByDebtorCode';
+    $method = 'getBillByReference';
 
-    switch ($variable) {
+    switch ($method) {
         case 'getBillByReference':
             $parameters = new stdClass();
             $parameters->auth = $auth;
@@ -73,15 +81,15 @@ try {
             $parameters->auth = $auth;
 
             $payment->reference = $reference;
-            $payment->totalAmount = 000000;
+            $payment->totalAmount = 2000000;
             $payment->date = date('c');
-            $payment->receipt = null;
+            $payment->receipt = 878794;
             $payment->franchise = 'DVVND';
             $payment->channel = 'OFC';
             $payment->method = 'CASH';
             $payment->checkInfo = null;
-            $payment->cashAmount = 00000;
-            $payment->payerID = '0000000';
+            $payment->cashAmount = 2000000;
+            $payment->payerID = '1019902745';
             $payment->agreement = $agreement;
             $payment->agentID = '123456';
             $payment->location = '999';
